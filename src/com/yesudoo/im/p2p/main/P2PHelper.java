@@ -1,14 +1,18 @@
 package com.yesudoo.im.p2p.main;
 
 import com.yesudoo.im.p2p.connection.IP2PConnection;
+import com.yesudoo.im.p2p.connection.IReliableSocket;
+import com.yesudoo.im.p2p.connection.P2PConnection;
+import com.yesudoo.im.p2p.netenv.IStunClient;
+import com.yesudoo.im.p2p.strategy.IStrategy;
+import com.yesudoo.im.p2p.strategy.StrategyManager;
 import com.yesudoo.im.p2p.util.P2PHelperConfig;
 import com.yesudoo.im.p2p.xmpp.IXMPPClient;
-import com.yesudoo.im.p2p.xmpp.XMPPMessage;
 
 public class P2PHelper implements IP2PHelper {
 
 	private P2PHelperConfig config;
-	
+	private StrategyManager smanager = new StrategyManager();
 	@Override
 	public void setConfig(P2PHelperConfig config) {
 		// TODO Auto-generated method stub
@@ -18,13 +22,20 @@ public class P2PHelper implements IP2PHelper {
 	@Override
 	public IP2PConnection getConnection(String targetJID) {
 		// TODO Auto-generated method stub
+		IXMPPClient xmppClient = config.getXmppClient();
+		IStunClient stunClient = config.getStunClient();
+		smanager.setStunClient(stunClient);
+		smanager.setXmppClient(xmppClient);
 		
-		IXMPPClient xmppclient = config.getXmppClient();
-		XMPPMessage message = new XMPPMessage();
-		message.setTargetJID(targetJID);
-		message.setContent("init");
-		xmppclient.sendXMPPMessage(message);
-		return null;
+		IStrategy strategy = smanager.getProperStrategy("dyr@192.168.1.133", targetJID);
+		if(strategy.tryStrategy()){
+			IReliableSocket rsocket = strategy.getReiliableSocket();
+			P2PConnection conn = new P2PConnection();
+			conn.setSocket(rsocket);
+			return conn;
+		}else{
+			return null;
+		}
 	}
 
 	@Override
