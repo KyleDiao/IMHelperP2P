@@ -30,6 +30,8 @@ public class StrategyManager {
 	}
 	
 	public IStrategy getProperStrategy(String localJID, String remoteJID){
+		
+		
 		xmppClient.setXMPPListener(new IXMPPListener() {
 			
 			@Override
