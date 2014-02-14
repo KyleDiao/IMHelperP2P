@@ -4,5 +4,7 @@ public interface IUDPSocket {
 
 	public void bind(String address,int port);
 	
-	public int sendPacket(IUDPPacket packet);
+	public void sendPacket(IUDPPacket packet);
+	
+	public IUDPPacket recievePacket();
 }

@@ -5,7 +5,7 @@ import com.yesudoo.im.p2p.netenv.NATType;
 
 public interface IStrategy {
 
-	public void setEnvironment(NATType natType, String localJID, String remoteJID);
+	public void setEnvironment(NATType natType,NATType remoteNatType, String localJID, String remoteJID);
 	
 	public boolean tryStrategy();
 	

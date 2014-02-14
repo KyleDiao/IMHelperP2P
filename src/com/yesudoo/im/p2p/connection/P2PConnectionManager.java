@@ -3,7 +3,17 @@ package com.yesudoo.im.p2p.connection;
 public class P2PConnectionManager {
 
 	private IP2PConnection p2pConnection;
+	private IReliableSocket rsocket;
+	private IUDPSocket udpSocket;
 	
+	public IReliableSocket getRsocket() {
+		return rsocket;
+	}
+
+	public void setRsocket(IReliableSocket rsocket) {
+		this.rsocket = rsocket;
+	}
+
 	public IP2PConnection getP2pConnection() {
 		return p2pConnection;
 	}

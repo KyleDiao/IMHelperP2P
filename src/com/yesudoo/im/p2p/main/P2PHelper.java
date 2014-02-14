@@ -2,7 +2,7 @@ package com.yesudoo.im.p2p.main;
 
 import com.yesudoo.im.p2p.connection.IP2PConnection;
 import com.yesudoo.im.p2p.connection.IReliableSocket;
-import com.yesudoo.im.p2p.connection.P2PConnection;
+import com.yesudoo.im.p2p.connection.P2PConnectionManager;
 import com.yesudoo.im.p2p.netenv.IStunClient;
 import com.yesudoo.im.p2p.strategy.IStrategy;
 import com.yesudoo.im.p2p.strategy.StrategyManager;
@@ -13,6 +13,7 @@ public class P2PHelper implements IP2PHelper {
 
 	private P2PHelperConfig config;
 	private StrategyManager smanager = new StrategyManager();
+
 	@Override
 	public void setConfig(P2PHelperConfig config) {
 		// TODO Auto-generated method stub
@@ -26,14 +27,15 @@ public class P2PHelper implements IP2PHelper {
 		IStunClient stunClient = config.getStunClient();
 		smanager.setStunClient(stunClient);
 		smanager.setXmppClient(xmppClient);
-		
-		IStrategy strategy = smanager.getProperStrategy("dyr@192.168.1.133", targetJID);
-		if(strategy.tryStrategy()){
+
+		IStrategy strategy = smanager.getProperStrategy("dyr@192.168.1.133",
+				targetJID);
+		if (strategy.tryStrategy()) {
 			IReliableSocket rsocket = strategy.getReiliableSocket();
-			P2PConnection conn = new P2PConnection();
-			conn.setSocket(rsocket);
-			return conn;
-		}else{
+			P2PConnectionManager connmgr = new P2PConnectionManager();
+			connmgr.setRsocket(rsocket);
+			return connmgr.getP2pConnection();
+		} else {
 			return null;
 		}
 	}
@@ -44,5 +46,4 @@ public class P2PHelper implements IP2PHelper {
 		return null;
 	}
 
-	
 }

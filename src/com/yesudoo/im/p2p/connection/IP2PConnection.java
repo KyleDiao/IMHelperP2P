@@ -5,4 +5,6 @@ public interface IP2PConnection {
 
 	public void setP2PListener(IP2PConnectionListener listener);
 
+	public int recieveData(byte[] data, int length);
+	
 }

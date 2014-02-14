@@ -8,6 +8,8 @@ import com.yesudoo.im.p2p.xmpp.XMPPMessage;
 
 
 public class StrategyManager {
+	
+	public StrategyManager(){}
 
 	private IStunClient stunClient;
 	
@@ -31,19 +33,21 @@ public class StrategyManager {
 	
 	public IStrategy getProperStrategy(String localJID, String remoteJID){
 		
-		
-		xmppClient.setXMPPListener(new IXMPPListener() {
-			
-			@Override
-			public void notifyXMPPMessage(XMPPMessage message) {
-				// TODO Auto-generated method stub
-				
-			}
-		});
 		XMPPMessage message = new XMPPMessage();
 		message.setTargetJID(remoteJID);
-		message.setContent("");
+		
 		NATType natType = stunClient.getNatType();
+		NATType remoteNatType = NATType.UNKNOWN;
+		message.setContent(natType.toString());
+		message.setExtend("nattype");
+		xmppClient.sendXMPPMessage(message);
+		XMPPMessage remoteMessage = xmppClient.recieveXMPPMessage();
+		if(remoteMessage != null){
+			if("nattype".equals(remoteMessage.getExtend())){
+				remoteNatType = NATType.valueOf(remoteMessage.getContent());
+				return StrategyFactory.getInstance().getProperStrategy(natType, remoteNatType,localJID,remoteJID);
+			}
+		}
 		
 		return null;
 	}

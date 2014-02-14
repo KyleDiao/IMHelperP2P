@@ -26,6 +26,12 @@ public class P2PConnection implements IP2PConnection{
 		
 	}
 
+	@Override
+	public int recieveData(byte[] data, int length) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 	
 	
 }
