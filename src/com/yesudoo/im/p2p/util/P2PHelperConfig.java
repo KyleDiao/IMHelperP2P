@@ -11,6 +11,44 @@ public class P2PHelperConfig {
 	
 	private String xmppServerAddr;
 	
+	public String getXmppServerAddr() {
+		return xmppServerAddr;
+	}
+
+	public void setXmppServerAddr(String xmppServerAddr) {
+		this.xmppServerAddr = xmppServerAddr;
+	}
+
+	public int getXmppPort() {
+		return xmppPort;
+	}
+
+	public void setXmppPort(int xmppPort) {
+		this.xmppPort = xmppPort;
+	}
+
+	public String getStunServerAddr() {
+		return stunServerAddr;
+	}
+
+	public void setStunServerAddr(String stunServerAddr) {
+		this.stunServerAddr = stunServerAddr;
+	}
+
+	public int getStunPort() {
+		return stunPort;
+	}
+
+	public void setStunPort(int stunPort) {
+		this.stunPort = stunPort;
+	}
+
+	private int xmppPort;
+	
+	private String stunServerAddr;
+	
+	private int stunPort;
+	
 	public IStunClient getStunClient() {
 		return stunClient;
 	}
