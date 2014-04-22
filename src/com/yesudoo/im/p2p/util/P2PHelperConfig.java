@@ -9,6 +9,8 @@ public class P2PHelperConfig {
 	
 	private IXMPPClient xmppClient;
 	
+	private String xmppServerAddr;
+	
 	public IStunClient getStunClient() {
 		return stunClient;
 	}
