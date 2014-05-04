@@ -1,0 +1,36 @@
+五月 01, 2014 11:37:41 上午 de.javawi.jstun.test.DiscoveryTest test1
+详细: Test 1: Binding Request sent.
+五月 01, 2014 11:37:55 上午 de.javawi.jstun.header.MessageHeader parseHeader
+详细: Binding Response received.
+五月 01, 2014 11:38:04 上午 de.javawi.jstun.attribute.MappedAddress parse
+详细: Message Attribute: Mapped Address parsed: Address 111.196.19.96, Port 64662.
+五月 01, 2014 11:38:04 上午 de.javawi.jstun.attribute.SourceAddress parse
+详细: Message Attribute: Source Address parsed: Address 85.214.108.26, Port 3478.
+五月 01, 2014 11:38:04 上午 de.javawi.jstun.attribute.ChangedAddress parse
+详细: Message Attribute: Changed Address parsed: Address 85.214.37.102, Port 3479.
+五月 01, 2014 11:38:40 上午 de.javawi.jstun.test.DiscoveryTest test1
+详细: Node is natted.
+五月 01, 2014 11:38:56 上午 de.javawi.jstun.test.DiscoveryTest test2
+详细: Test 2: Binding Request sent.
+五月 01, 2014 11:39:05 上午 de.javawi.jstun.test.DiscoveryTest test2
+详细: Test 2: Socket timeout while receiving the response.
+五月 01, 2014 11:39:16 上午 de.javawi.jstun.test.DiscoveryTest test2
+详细: Test 2: Binding Request sent.
+五月 01, 2014 11:39:37 上午 de.javawi.jstun.test.DiscoveryTest test2
+详细: Test 2: Socket timeout while receiving the response.
+五月 01, 2014 11:39:42 上午 de.javawi.jstun.test.DiscoveryTest test2
+详细: Test 2: Binding Request sent.
+五月 01, 2014 11:39:48 上午 de.javawi.jstun.test.DiscoveryTest test2
+详细: Test 2: Socket timeout while receiving the response.
+五月 01, 2014 11:39:49 上午 de.javawi.jstun.test.DiscoveryTest test2
+详细: Test 2: Binding Request sent.
+五月 01, 2014 11:39:49 上午 de.javawi.jstun.header.MessageHeader parseHeader
+详细: Binding Response received.
+五月 01, 2014 11:39:49 上午 de.javawi.jstun.attribute.MappedAddress parse
+详细: Message Attribute: Mapped Address parsed: Address 111.196.19.96, Port 58319.
+五月 01, 2014 11:39:49 上午 de.javawi.jstun.attribute.SourceAddress parse
+详细: Message Attribute: Source Address parsed: Address 85.214.37.102, Port 3479.
+五月 01, 2014 11:39:49 上午 de.javawi.jstun.attribute.ChangedAddress parse
+详细: Message Attribute: Changed Address parsed: Address 85.214.37.102, Port 3479.
+五月 01, 2014 11:39:50 上午 de.javawi.jstun.test.DiscoveryTest test2
+详细: Node is behind a full-cone NAT.
