@@ -30,6 +30,14 @@ public class P2PConnectionManager {
 		this.pspListener = pspListener;
 	}
 
+	public IUDPSocket getUdpSocket() {
+		return udpSocket;
+	}
+
+	public void setUdpSocket(IUDPSocket udpSocket) {
+		this.udpSocket = udpSocket;
+	}
+
 	private IP2PConnectionListener pspListener;
 	
 	

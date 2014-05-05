@@ -3,7 +3,6 @@ package com.yesudoo.im.p2p.strategy;
 import com.yesudoo.im.p2p.netenv.IStunClient;
 import com.yesudoo.im.p2p.netenv.NATType;
 import com.yesudoo.im.p2p.xmpp.IXMPPClient;
-import com.yesudoo.im.p2p.xmpp.IXMPPListener;
 import com.yesudoo.im.p2p.xmpp.XMPPMessage;
 
 

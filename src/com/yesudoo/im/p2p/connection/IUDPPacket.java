@@ -9,4 +9,6 @@ public interface IUDPPacket {
 	public void setTarget(UDPFullAddress address);
 	
 	public UDPFullAddress getTarget();
+	
+	public UDPFullAddress getSource();
 }
