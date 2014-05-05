@@ -21,7 +21,7 @@ public class P2PHelper implements IP2PHelper {
 	}
 
 	@Override
-	public IP2PConnection getConnection(String targetJID) {
+	public IP2PConnection getConnection(String targetJID) throws Exception {
 		// TODO Auto-generated method stub
 		IXMPPClient xmppClient = config.getXmppClient();
 		IStunClient stunClient = config.getStunClient();

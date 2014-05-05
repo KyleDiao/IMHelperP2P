@@ -31,7 +31,7 @@ public class StrategyManager {
 		this.xmppClient = xmppClient;
 	}
 	
-	public IStrategy getProperStrategy(String localJID, String remoteJID){
+	public IStrategy getProperStrategy(String localJID, String remoteJID) throws Exception{
 		
 		XMPPMessage message = new XMPPMessage();
 		message.setTargetJID(remoteJID);

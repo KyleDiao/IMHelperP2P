@@ -7,7 +7,7 @@ import com.yesudoo.im.p2p.util.P2PHelperConfig;
 
 public class IMSimulator {
 
-	public static void main(int argn, String[] argv){
+	public static void main(int argn, String[] argv) throws Exception{
 		P2PHelper p2p = new P2PHelper();
 		P2PHelperConfig config = new P2PHelperConfig();
 
@@ -17,7 +17,7 @@ public class IMSimulator {
 		config.setTimeout(3000);
 		
 		p2p.setConfig(config);
-		String targetJID = "dyr@192.168.1.133/some";
+		String targetJID = "dyr@192.168.1.175/some";
 		
 		IP2PConnection conn = p2p.getConnection(targetJID);
 		conn.setP2PListener(new IP2PConnectionListener() {

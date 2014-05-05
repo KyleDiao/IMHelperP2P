@@ -3,6 +3,7 @@ package com.yesudoo.im.p2p.netenv;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.InetAddress;
+import java.net.InetSocketAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.net.UnknownHostException;
@@ -24,6 +25,7 @@ public class StunClientAdapter implements IStunClient {
 
 	private int[] stunPorts = null;
 	private String[] stunServers = null;
+	private int timeout = 3000;
 
 	// private UdpStunClient usc = null;// new UdpStunClient();
 	private DiscoveryTest disTest = null;
@@ -57,56 +59,70 @@ public class StunClientAdapter implements IStunClient {
 	}
 
 	@Override
-	public String getPublicIP() throws SocketException,
-			UnknownHostException, MessageAttributeParsingException,
-			MessageHeaderParsingException, UtilityException, IOException,
-			MessageAttributeException {
+	public String getPublicIP() throws SocketException, UnknownHostException,
+			MessageAttributeParsingException, MessageHeaderParsingException,
+			UtilityException, IOException, MessageAttributeException {
 		if (disInfo == null) {
 			this.refresh();
 		}
 		return disInfo.getPublicIP().getHostAddress();
 	}
-	
+
 	@Override
-	public MappedSocket getMappedSocket() {
-		return null;
-//		MappedSocket msocket = new MappedSocket();
-//		msocket.setReuseAddress(true);
-//		//msocket.bind(new InetSocketAddress(iaddress, 0));
-//		//msocket.connect(InetAddress.getByName(stunServer), stunPort);
-//		msocket.setSoTimeout(timeout);
-//
-//		MessageHeader sendMH = new MessageHeader(
-//				MessageHeader.MessageHeaderType.BindingRequest);
-//
-//		sendMH.generateTransactionID();
-//
-//		byte[] data;
-//
-//		data = sendMH.getBytes();
-//		DatagramPacket send = new DatagramPacket(data, data.length);
-//		send.setAddress(InetAddress.getByName(stunServer));
-//		send.setPort(stunPort);
-//		msocket.send(send);
-//
-//		MessageHeader receiveMH = new MessageHeader();
-//		while (!(receiveMH.equalTransactionID(sendMH))) {
-//			DatagramPacket receive = new DatagramPacket(new byte[200], 200);
-//			msocket.receive(receive);
-//			receiveMH = MessageHeader.parseHeader(receive.getData());
-//			receiveMH.parseAttributes(receive.getData());
-//		}
-//		
-//		MappedAddress ma = (MappedAddress) receiveMH.getMessageAttribute(MessageAttribute.MessageAttributeType.MappedAddress);
-//		msocket.setMaddr(ma);
-//		return msocket;
+	public MappedSocket getMappedSocket() throws UtilityException, IOException,
+			MessageHeaderParsingException, MessageAttributeParsingException {
+		MappedSocket msocket = new MappedSocket();
+
+		msocket.setReuseAddress(true);
+
+		msocket.bind(new InetSocketAddress(stunServers[0], 0));
+		msocket.connect(InetAddress.getByName(stunServers[0]), stunPorts[0]);
+		msocket.setSoTimeout(timeout);
+
+		MessageHeader sendMH = new MessageHeader(
+				MessageHeader.MessageHeaderType.BindingRequest);
+
+		sendMH.generateTransactionID();
+
+		byte[] data;
+
+		data = sendMH.getBytes();
+		DatagramPacket send = new DatagramPacket(data, data.length);
+		send.setAddress(InetAddress.getByName(stunServers[0]));
+		send.setPort(stunPorts[0]);
+		msocket.send(send);
+
+		MessageHeader receiveMH = new MessageHeader();
+		while (!(receiveMH.equalTransactionID(sendMH))) {
+			DatagramPacket receive = new DatagramPacket(new byte[200], 200);
+			msocket.receive(receive);
+			receiveMH = MessageHeader.parseHeader(receive.getData());
+			receiveMH.parseAttributes(receive.getData());
+		}
+
+		MappedAddress ma = (MappedAddress) receiveMH
+				.getMessageAttribute(MessageAttribute.MessageAttributeType.MappedAddress);
+		msocket.setMaddr(ma);
+		return msocket;
+
 	}
 
-
 	@Override
-	public NATType getNatType() {
-		// TODO Auto-generated method stub
-		return null;
+	public NATType getNatType() throws SocketException, UnknownHostException,
+			MessageAttributeParsingException, MessageHeaderParsingException,
+			UtilityException, IOException, MessageAttributeException {
+		if (disInfo == null) {
+			this.refresh();
+		}
+		if (disInfo.isOpenAccess()) {
+			return NATType.PUBLIC;
+		} else if (disInfo.isFullCone() || disInfo.isRestrictedCone()
+				|| disInfo.isPortRestrictedCone()) {
+			return NATType.CONE;
+		} else if (disInfo.isSymmetric()) {
+			return NATType.SYMMETRIC;
+		}
+		return NATType.UNKNOWN;
 	}
 
 	public String[] getStunServers() {
@@ -154,6 +170,5 @@ public class StunClientAdapter implements IStunClient {
 		}
 		return null;
 	}
-
 
 }

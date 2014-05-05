@@ -7,7 +7,7 @@ public interface IP2PHelper {
 
 	public void setConfig(P2PHelperConfig config);
 	
-	public IP2PConnection getConnection(String targetJID);
+	public IP2PConnection getConnection(String targetJID) throws Exception;
 	
 	/**
 	 * This method will block until connection is created or timeout
